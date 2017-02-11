@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.dell.mynotary.MainActivity"
+    android:background="@color/colorPrimary">
+
+tools:context="com.example.dell.mynotary.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        android:background="@android:color/white">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/login_edittext_vertical_margin"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:layout_marginBottom="@dimen/login_edittext_vertical_margin"
+            android:layout_marginRight="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginLeft="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginTop="@dimen/login_edittext_vertical_margin"
+            android:paddingBottom="@dimen/login_edittext_vertical_margin"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Username"
+            style="@style/Loginbtnstyle"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_margin="@dimen/login_edittext_vertical_margin"
+            android:layout_marginBottom="@dimen/login_edittext_vertical_margin"
+            android:layout_marginRight="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginLeft="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginTop="@dimen/login_edittext_vertical_margin"
+            android:id="@+id/edittext_uname_edittext" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"
+            style="@style/Loginbtnstyle"
+            android:layout_margin="@dimen/login_edittext_vertical_margin"
+            android:backgroundTint="@color/colorPrimary"
+            android:layout_marginBottom="@dimen/login_edittext_vertical_margin"
+            android:layout_marginRight="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginLeft="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginTop="@dimen/login_edittext_vertical_margin"
+            android:id="@+id/edittext_pwd_edittext" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_margin="@dimen/login_edittext_vertical_margin"
+            style="@style/Buttonstyle"
+            android:layout_marginBottom="@dimen/login_edittext_vertical_margin"
+            android:layout_marginRight="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginLeft="@dimen/login_edittext_horizontal_margin"
+            android:layout_marginTop="@dimen/login_edittext_vertical_margin"
+
+            android:id="@+id/btn_login_btn" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textColor="@color/colorPrimary"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_margin="@dimen/login_edittext_vertical_margin"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/login_edittext_vertical_margin"
+                android:layout_marginRight="@dimen/login_edittext_horizontal_margin"
+                android:layout_marginLeft="@dimen/login_edittext_horizontal_margin"
+                android:layout_marginTop="@dimen/login_edittext_vertical_margin"
+                android:id="@+id/main_tv_signup"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_marginBottom="@dimen/login_edittext_vertical_margin"
+                android:layout_marginRight="@dimen/login_edittext_horizontal_margin"
+                android:layout_marginLeft="@dimen/login_edittext_horizontal_margin"
+                android:layout_marginTop="@dimen/login_edittext_vertical_margin"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
