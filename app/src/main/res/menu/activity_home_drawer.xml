@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_Case_Details"
+            android:icon="@drawable/ic_school_black_24dp"
+            android:title="Case Details" />
+        <item
+            android:id="@+id/nav_Schedule"
+            android:title="Schedule" >
+            <menu>
+                <item
+                    android:id="@+id/nav_Lecture_Schedule"
+                    android:icon="@drawable/ic_import_contacts_black_24dp"
+                    android:title="Lecture Schedule" />
+
+
+            </menu>
+            </item>
+        <item
+            android:id="@+id/nav_Law_Dictionary"
+            android:icon="@drawable/ic_local_library_black_24dp"
+            android:title="Law Dictionary" />
+        <item
+            android:id="@+id/nav_Material"
+            android:icon="@drawable/ic_picture_as_pdf_black_24dp"
+            android:title="Material" />
+        <item
+            android:id="@+id/nav_Logout"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="Logout" />
+
+    </group>
+
+
+</menu>
