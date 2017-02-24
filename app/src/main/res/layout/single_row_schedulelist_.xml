@@ -17,12 +17,40 @@
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="lecture schedule"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:padding="2dp"
             android:id="@+id/row_schedule_lectureschedule"/>
-         <LinearLayout
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Day"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:padding="2dp"
+            android:id="@+id/row_schedule_Day"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Time"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:padding="2dp"
+            android:id="@+id/row_schedule_Time"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Subject"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:padding="2dp"
+            android:id="@+id/row_schedule_Subject"/>
+
+
+
+
+
+
+        <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:weightSum="2">

@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">My Notary</string>
-    <string-array name="casedetails">
-
-
-    </string-array>
+    <string-array name="casedetails"></string-array>
+    <string-array name="day"></string-array>
+    <string-array name="time"></string-array>
+    <string-array name="subject"></string-array>
 
     <string name="title_activity_home">HomeActivity</string>
 

@@ -41,6 +41,8 @@ public class MyschedulelistAdapter extends BaseAdapter {
 
     static class ViewHolder{
         TextView lecturescheduleTV;
+        TextView DaysTv;
+        TextView TimeTv;
 
     }
     @Override
@@ -50,11 +52,15 @@ public class MyschedulelistAdapter extends BaseAdapter {
             holder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.single_row_schedulelist_,parent,false);
             holder.lecturescheduleTV = (TextView) convertView.findViewById(R.id.row_schedule_lectureschedule);
+            holder.DaysTv=(TextView)convertView.findViewById(R.id.row_schedule_Day);
+            holder.TimeTv=(TextView)convertView.findViewById(R.id.row_schedule_Time);
+
             convertView.setTag(holder);
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.lecturescheduleTV.setText(arrayList.get(position).getLectureschedulelist());
+        holder.DaysTv.setText(arrayList.get(position).getDay());
+        holder.TimeTv.setText(arrayList.get(position).getTime());
         // handle convertview onclick
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
