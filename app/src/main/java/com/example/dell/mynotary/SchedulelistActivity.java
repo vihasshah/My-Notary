@@ -2,6 +2,7 @@ package com.example.dell.mynotary;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -45,6 +46,12 @@ public class SchedulelistActivity extends AppCompatActivity {
             MyschedulelistAdapter myschedulelistAdapter = new MyschedulelistAdapter(this,ObjetHolder.schedulelistModels);
             listView.setAdapter(myschedulelistAdapter);
        // }
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

@@ -2,6 +2,7 @@ package com.example.dell.mynotary;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
@@ -30,5 +31,13 @@ public class CaseDetailsActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="Username"
+            android:hint="Email"
             style="@style/Loginbtnstyle"
             android:backgroundTint="@color/colorPrimary"
             android:layout_margin="@dimen/login_edittext_vertical_margin"
@@ -46,7 +46,7 @@
             android:layout_marginRight="@dimen/login_edittext_horizontal_margin"
             android:layout_marginLeft="@dimen/login_edittext_horizontal_margin"
             android:layout_marginTop="@dimen/login_edittext_vertical_margin"
-            android:id="@+id/edittext_uname_edittext" />
+            android:id="@+id/edittext_email_edittext" />
 
         <EditText
             android:layout_width="match_parent"

@@ -8,15 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:hint="Your First School"
-        android:id="@+id/forgot_et_q1"
+        android:hint="Your Email"
+        android:id="@+id/forgot_et_email"
         />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="Your Favourite Colour"
-        android:id="@+id/forgot_et_q2"/>
+
 
 </LinearLayout>
