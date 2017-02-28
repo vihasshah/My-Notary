@@ -9,8 +9,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:hint="Your Email"
-        android:id="@+id/forgot_et_email"
-        />
+        android:id="@+id/forgot_et_email" />
 
 
 

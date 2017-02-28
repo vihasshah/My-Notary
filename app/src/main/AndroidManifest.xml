@@ -13,7 +13,7 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+                android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".SignupActivity" />
         <activity
             android:name=".HomeActivity"
@@ -30,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".SchedulelistActivity"></activity>
     </application>
 

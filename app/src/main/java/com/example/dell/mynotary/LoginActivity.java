@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
+import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,8 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         fgpwdET.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
-                startActivity(intent);
 
                 showForgotPasswordDialog();
             }
@@ -83,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     JSONObject object = new JSONObject();
                     try {
+//                        object.put("mode","loginUser");
                         object.put("email", stremail);
                         object.put("password", strpwd);
                     } catch (JSONException e) {
@@ -90,11 +92,17 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     String jsonRequest = String.valueOf(object);
-                    String URL = "http://rapidans.esy.es/project/login.php";
-                    new com.example.dell.mynotary.AsyncTasks.WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, new com.example.dell.mynotary.AsyncTasks.AsyncResponse() {
+//                    String URL = "http://development.ifuturz.com/core/FLAT_TEST/stone_galary/admin/webservice.php";
+                    String URL = "http://www.vnurture.in/pro/login.php";
+                    new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, new AsyncResponse() {
                         @Override
                         public void onSuccess(final String message, JSONArray jsonData) {
                             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                            try {
+                                getSharedPreferences("testpref",MODE_PRIVATE).edit().putString("id",jsonData.getJSONObject(0).getString("id")).apply();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                         }
@@ -122,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                 .setPositiveButton("Verify", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        handleText();
+                        handleDialog(dialogView);
                         dialog.dismiss();
                     }
                 })
@@ -134,18 +142,25 @@ public class LoginActivity extends AppCompatActivity {
                 })
                 .create();
         alertDialog.show();
-        String stremail = emailET.getText().toString();
+
+
+    }
+
+    private void handleDialog(View dialogView) {
+        EditText verifyEmailET = (EditText) dialogView.findViewById(R.id.forgot_et_email);
+        String stremail = verifyEmailET.getText().toString();
         JSONObject object = new JSONObject();
         try {
-            object.put("email", stremail);
-
+            object.put("mode","forgotPassword");
+            object.put("emailId", stremail);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         String jsonRequest = String.valueOf(object);
-        String URL = "http://rapidans.esy.es/project/login.php";
-        new com.example.dell.mynotary.AsyncTasks.WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, new com.example.dell.mynotary.AsyncTasks.AsyncResponse() {
+//        String URL = "http://development.ifuturz.com/core/FLAT_TEST/stone_galary/admin/webservice.php";
+        String URL = "http://www.vnurture.in/pro/mailtest.php";
+        new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, new AsyncResponse() {
             @Override
             public void onSuccess(final String message, JSONArray jsonData) {
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -158,16 +173,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         }).execute();
-
     }
 
-    private void handleText() {
-        if (dialogView != null){
-            EditText q1 = (EditText) dialogView.findViewById(R.id.forgot_et_email);
-            //EditText q2 = (EditText) dialogView.findViewById(R.id.forgot_et_q2);
-            Intent intent = new Intent(LoginActivity.this,ForgetPasswordActivity.class);
-            startActivity(intent);
-        }
-    }
 
 }

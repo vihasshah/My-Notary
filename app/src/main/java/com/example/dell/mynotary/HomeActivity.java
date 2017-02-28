@@ -81,7 +81,7 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            this.finish();
         }
     }
 
@@ -128,12 +128,17 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
-
-        }*/
+        }*/ else if (id == R.id.nav_Logout) {
+                getSharedPreferences("testpref",MODE_PRIVATE).edit().clear().apply();
+               Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+               intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+               startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

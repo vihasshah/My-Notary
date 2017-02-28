@@ -64,7 +64,7 @@ public class WebserviceCall extends AsyncTask<Void,Void,String>{
 
         // creating okhttp client
         OkHttpClient client = new OkHttpClient();
-        client.setConnectTimeout(10L, TimeUnit.SECONDS);
+       // client.setConnectTimeout(10L, TimeUnit.SECONDS);
         // creating request body
         RequestBody body;
         if(jsonBody != null) {
@@ -82,7 +82,9 @@ public class WebserviceCall extends AsyncTask<Void,Void,String>{
 
         try {
             Response response = client.newCall(request).execute();
-            return response.body().string();
+            String res = response.body().string();
+            Log.d("myapp",res);
+            return res;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,7 +104,7 @@ public class WebserviceCall extends AsyncTask<Void,Void,String>{
         }
         if(s != null){
             // set value to AsyncResponse interface for further proccess in activity
-            Log.d("myapp",getClass().getSimpleName()+" "+s);
+            //  Log.d("myapp",getClass().getSimpleName()+" "+s);
             if(delegate != null) {
                 try {
                     JSONObject object = new JSONObject(s);
