@@ -1,5 +1,8 @@
 package com.example.dell.mynotary;
 
+import com.example.dell.mynotary.CaseDetails.CaseDetailsModel;
+import com.example.dell.mynotary.Schedule.ScheduleModel;
+
 import java.util.ArrayList;
 
 /**
@@ -8,6 +11,6 @@ import java.util.ArrayList;
 
 public class ObjetHolder {
     public static ArrayList<CaseDetailsModel> caseDetailsList;
-    public static ArrayList<SchedulelistModel> schedulelistModels;
+    public static ArrayList<ScheduleModel> scheduleModels;
 
 }

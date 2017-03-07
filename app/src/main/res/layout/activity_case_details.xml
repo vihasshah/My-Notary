@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_case_details"
     android:layout_width="match_parent"
@@ -8,45 +8,50 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.dell.mynotary.CaseDetailsActivity">
+    android:orientation="vertical"
+    tools:context="com.example.dell.mynotary.CaseDetails.CaseDetailsActivity">
 
     <TextView
         android:text="CaseName-Robbery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/TVCaseName"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+        android:id="@+id/case_details_case_number"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    <TextView
+        android:text="CaseName-Robbery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/case_details_case_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
         android:text="ClientName-R.R.Shah"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TVCaseName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="37dp"
-        android:id="@+id/TVClientName"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"/>
+        android:id="@+id/case_details_case_client_name"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
-        android:text="Description-
-        Date-12/12/2015
-        FIR filed Under Section 303(A)-
-        Crime-Robbery
-        Suspect-K.V.Patel
-        Witnessed by-K.R.Shah"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/TVClientName"
-        android:layout_alignLeft="@+id/TVClientName"
-        android:layout_alignStart="@+id/TVClientName"
-        android:layout_marginTop="52dp"
-        android:id="@+id/TVDescription"
+        android:layout_height="wrap_content"
+        android:text="Demo desciption"
+        android:id="@+id/case_details_case_court_name"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Demo desciption"
+        android:id="@+id/case_details_case_date"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
-</RelativeLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Demo desciption"
+        android:id="@+id/case_details_case_description"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+</LinearLayout>

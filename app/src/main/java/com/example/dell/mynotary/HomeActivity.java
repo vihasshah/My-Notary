@@ -2,9 +2,6 @@ package com.example.dell.mynotary;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+
+import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
+import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
+import com.example.dell.mynotary.CaseDetails.CaseDetailsActivity;
+import com.example.dell.mynotary.CaseDetails.CaseDetailsModel;
+import com.example.dell.mynotary.CaseDetails.MyCaseDetailsAdapter;
+import com.example.dell.mynotary.Schedule.ScheduleActivity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -28,14 +35,6 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -46,32 +45,60 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ObjetHolder.caseDetailsList = new ArrayList<>();
-        CaseDetailsModel model = new CaseDetailsModel();
-        model.setCaseName("CaseName");
-        model.setClientName("ClientName");
-        model.setDetails("Details");
-
-
-        ObjetHolder.caseDetailsList.add(model);
         // handled list view
         listView = (ListView) findViewById(R.id.home_list_view);
-        MyCaseDetailsAdapter adapter = new MyCaseDetailsAdapter(this,ObjetHolder.caseDetailsList);
-        listView.setAdapter(adapter);
 
-       /* ObjetHolder.schedulelistModels = new ArrayList<>();
-        SchedulelistModel model1=new SchedulelistModel();
+
+       /* ObjetHolder.scheduleModels = new ArrayList<>();
+        ScheduleModel model1=new ScheduleModel();
         model1.setLectureschedulelist("lectureschedulelist");
 
-        ObjetHolder.schedulelistModels.add(model1);
+        ObjetHolder.scheduleModels.add(model1);
         // handled list view
         listView = (ListView) findViewById(R.id.home_list_view);
-        MyschedulelistAdapter myschedulelistAdapter = new MyschedulelistAdapter(this,ObjetHolder.schedulelistModels);
+        ScheduleAdapter myschedulelistAdapter = new ScheduleAdapter(this,ObjetHolder.scheduleModels);
         listView.setAdapter(myschedulelistAdapter);*/
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ObjetHolder.caseDetailsList = new ArrayList<>();
+        // create request string
 
+        String jsonRequest = Utils.createJsonRequest(new String[]{"mode"},new String[]{"CaseDetails"});
+        new WebserviceCall(this, Const.DETAILS_URL, jsonRequest, "getting details...", true, new AsyncResponse() {
+            @Override
+            public void onSuccess(String message, JSONArray jsonData) {
+                decodeJsonData(jsonData);
+                MyCaseDetailsAdapter adapter = new MyCaseDetailsAdapter(HomeActivity.this,ObjetHolder.caseDetailsList);
+                listView.setAdapter(adapter);
+            }
 
+            @Override
+            public void onFailure(String message) {
+
+            }
+        }).execute();
+    }
+
+    private void decodeJsonData(JSONArray jsonData) {
+        int count = jsonData.length();
+        for (int i = 0; i < count; i++) {
+            CaseDetailsModel model = new CaseDetailsModel();
+            try {
+                model.setCaseNo(jsonData.getJSONObject(i).getString("caseno"));
+                model.setCaseName(jsonData.getJSONObject(i).getString("title"));
+                model.setDetails(jsonData.getJSONObject(i).getString("details"));
+                model.setCourtName(jsonData.getJSONObject(i).getString("court_name"));
+                model.setDate(jsonData.getJSONObject(i).getString("date"));
+                model.setClientName(jsonData.getJSONObject(i).getString("client_name"));
+                ObjetHolder.caseDetailsList.add(model);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -114,7 +141,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
        if (id == R.id.nav_Lecture_Schedule) {
-           Intent intent = new Intent(HomeActivity.this, SchedulelistActivity.class);
+           Intent intent = new Intent(HomeActivity.this, ScheduleActivity.class);
            startActivity(intent);
 
            // Handle the camera action

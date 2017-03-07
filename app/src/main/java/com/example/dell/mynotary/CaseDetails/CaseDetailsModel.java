@@ -1,4 +1,4 @@
-package com.example.dell.mynotary;
+package com.example.dell.mynotary.CaseDetails;
 
 /**
  * Created by DELL on 2/17/2017.
@@ -8,7 +8,10 @@ public class CaseDetailsModel {
     private String caseName;
     private String clientName;
     private String details;
-    private int img;
+    private String courtName;
+    private String date;
+    private String caseNo;
+
 
     public String getCaseName() {
         return caseName;
@@ -34,11 +37,27 @@ public class CaseDetailsModel {
         this.details = details;
     }
 
-    public int getImg() {
-        return img;
+    public String getCourtName() {
+        return courtName;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setCourtName(String courtName) {
+        this.courtName = courtName;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCaseNo() {
+        return caseNo;
+    }
+
+    public void setCaseNo(String caseNo) {
+        this.caseNo = caseNo;
     }
 }
