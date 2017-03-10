@@ -7,10 +7,10 @@ import android.widget.ListView;
 
 import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
 import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
-import com.example.dell.mynotary.Const;
-import com.example.dell.mynotary.ObjetHolder;
+import com.example.dell.mynotary.Helpers.Const;
+import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.R;
-import com.example.dell.mynotary.Utils;
+import com.example.dell.mynotary.Helpers.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +60,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 decodeJsonData(jsonData);
                 ScheduleAdapter scheduleAdapter = new ScheduleAdapter(ScheduleActivity.this,ObjetHolder.scheduleModels);
                 listView.setAdapter(scheduleAdapter);
+
             }
 
             @Override

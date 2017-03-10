@@ -14,9 +14,11 @@ import android.widget.ListView;
 
 import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
 import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
-import com.example.dell.mynotary.CaseDetails.CaseDetailsActivity;
 import com.example.dell.mynotary.CaseDetails.CaseDetailsModel;
 import com.example.dell.mynotary.CaseDetails.MyCaseDetailsAdapter;
+import com.example.dell.mynotary.Helpers.Const;
+import com.example.dell.mynotary.Helpers.ObjetHolder;
+import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.Schedule.ScheduleActivity;
 
 import org.json.JSONArray;
@@ -44,7 +46,8 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        // checked first
+        navigationView.getMenu().getItem(0).setChecked(true);
         // handled list view
         listView = (ListView) findViewById(R.id.home_list_view);
 
@@ -147,8 +150,6 @@ public class HomeActivity extends AppCompatActivity
            // Handle the camera action
         } else if(id==R.id.nav_Case_Details)
        {
-           Intent intent = new Intent(HomeActivity.this,CaseDetailsActivity.class);
-           startActivity(intent);
         }/* else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

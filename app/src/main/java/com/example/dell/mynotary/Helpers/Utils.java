@@ -1,4 +1,4 @@
-package com.example.dell.mynotary;
+package com.example.dell.mynotary.Helpers;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,6 +8,12 @@ import org.json.JSONObject;
  */
 
 public class Utils {
+    /***
+     * Create json request
+     * @param keys
+     * @param values
+     * @return String jsonObject
+     */
     public static String createJsonRequest(String keys[],String values[]){
         JSONObject jsonObject = new JSONObject();
         try {

@@ -1,5 +1,7 @@
 package com.example.dell.mynotary.Schedule;
 
+import java.io.Serializable;
+
 /**
  * Created by DELL on 2/21/2017.
  */

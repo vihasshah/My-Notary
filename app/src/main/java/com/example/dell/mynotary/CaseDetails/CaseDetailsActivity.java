@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.dell.mynotary.ObjetHolder;
+import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.R;
-
-import java.security.PolicySpi;
-import java.util.ArrayList;
 
 public class CaseDetailsActivity extends AppCompatActivity {
     TextView caseNoTV,caseNameTV,clientNameTV,courtNameTV,dateTV,descTV;

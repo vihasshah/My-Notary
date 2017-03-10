@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.R;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 
@@ -72,9 +73,10 @@ public class ScheduleAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // go to details activity
-                Intent intent = new Intent(context,ScheduleActivity.class);
-                intent.putExtra("position",position);
+                // handling on click event
+                // pass position to details activity to show details
+                Intent intent = new Intent(context,ScheduleDetailActivity.class);
+                intent.putExtra(Const.INTENT_POSITION,position);
                 context.startActivity(intent);
             }
         });

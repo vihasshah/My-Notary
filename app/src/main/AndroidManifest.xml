@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dell.mynotary">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +13,7 @@
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
-                android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".SignupActivity" />
         <activity
             android:name=".HomeActivity"
@@ -30,7 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Schedule.ScheduleActivity"></activity>
+        <activity android:name=".Schedule.ScheduleActivity" />
+        <activity
+            android:name=".Schedule.ScheduleDetailActivity"
+            android:label="@string/title_activity_schedule_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
