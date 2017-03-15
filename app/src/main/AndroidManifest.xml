@@ -38,6 +38,10 @@
         <activity
             android:name=".Dictionary.DictionaryActivity"
             android:label="@string/title_activity_dictionary"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Dictionary.DictionaryDetailsActivity"
+            android:label="@string/title_activity_dictionary_details"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

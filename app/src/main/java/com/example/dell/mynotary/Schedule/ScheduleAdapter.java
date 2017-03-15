@@ -43,7 +43,7 @@ public class ScheduleAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder{
+    public static class ViewHolder{
         TextView universityTV,daysTv,timeTv,subjectTv;
         MaterialLetterIcon icon;
     }

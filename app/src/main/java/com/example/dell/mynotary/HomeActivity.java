@@ -16,6 +16,7 @@ import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
 import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
 import com.example.dell.mynotary.CaseDetails.CaseDetailsModel;
 import com.example.dell.mynotary.CaseDetails.MyCaseDetailsAdapter;
+import com.example.dell.mynotary.Dictionary.DictionaryActivity;
 import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.Helpers.Utils;
@@ -148,8 +149,10 @@ public class HomeActivity extends AppCompatActivity
            startActivity(intent);
 
            // Handle the camera action
-        } else if(id==R.id.nav_Case_Details)
+        } else if(id==R.id.nav_Law_Dictionary)
        {
+           Intent intent = new Intent(HomeActivity.this, DictionaryActivity.class);
+           startActivity(intent);
         }/* else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

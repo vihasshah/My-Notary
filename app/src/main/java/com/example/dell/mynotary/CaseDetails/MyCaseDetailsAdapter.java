@@ -41,7 +41,7 @@ public class MyCaseDetailsAdapter extends BaseAdapter {
         return position;
     }
 
-    static class ViewHolder{
+    public static class ViewHolder{
         MaterialLetterIcon icon;
         TextView caseNameTV;
         TextView clientNameTV;
