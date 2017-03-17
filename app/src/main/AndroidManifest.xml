@@ -42,6 +42,10 @@
         <activity
             android:name=".Dictionary.DictionaryDetailsActivity"
             android:label="@string/title_activity_dictionary_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Schedule.NewScheduleActivity"
+            android:label="@string/title_activity_new_schedule"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

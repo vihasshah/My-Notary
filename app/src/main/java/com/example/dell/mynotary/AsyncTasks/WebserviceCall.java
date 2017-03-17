@@ -35,13 +35,15 @@ public class WebserviceCall extends AsyncTask<Void,Void,String>{
     boolean showDialog = true;
     String URL;
     String jsonBody;
-    public WebserviceCall(Context context, String URL, String jsonRequestBody, String dialogMessage, boolean showDialog, AsyncResponse delegate){
+    String modeName;
+    public WebserviceCall(Context context, String URL, String jsonRequestBody, String dialogMessage, boolean showDialog, String modeName, AsyncResponse delegate){
         this.context = context;
         this.URL = URL;
         this.jsonBody = jsonRequestBody;
         this.dialogMessage = dialogMessage;
         this.showDialog = showDialog;
         this.delegate = delegate;
+        this.modeName = modeName;
     }
 
     @Override
@@ -113,7 +115,7 @@ public class WebserviceCall extends AsyncTask<Void,Void,String>{
                         // if json object is not null
                         if(object.getInt("success") == 1){
                             // success
-                            delegate.onSuccess(object.getString("message"),object.getJSONArray("data"));
+                            delegate.onSuccess(object.getString("message"),object.getJSONArray(modeName));
                         }else{
                             // failure
                             delegate.onFailure(object.getString("Fail"));

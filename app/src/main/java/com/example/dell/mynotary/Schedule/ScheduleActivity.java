@@ -1,7 +1,9 @@
 package com.example.dell.mynotary.Schedule;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -60,7 +62,6 @@ public class ScheduleActivity extends AppCompatActivity {
                 decodeJsonData(jsonData);
                 ScheduleAdapter scheduleAdapter = new ScheduleAdapter(ScheduleActivity.this,ObjetHolder.scheduleModels);
                 listView.setAdapter(scheduleAdapter);
-
             }
 
             @Override
@@ -71,9 +72,19 @@ public class ScheduleActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_add,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()== android.R.id.home){
             onBackPressed();
+        }
+        else if(item.getItemId() == R.id.menu_add_icon){
+            Intent intent = new Intent(ScheduleActivity.this,NewScheduleActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

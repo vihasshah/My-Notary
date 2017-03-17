@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                     String jsonRequest = String.valueOf(object);
 //                    String URL = "http://development.ifuturz.com/core/FLAT_TEST/stone_galary/admin/webservice.php";
                     String URL = "http://www.vnurture.in/pro/login.php";
-                    new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, new AsyncResponse() {
+                    new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, "data",new AsyncResponse() {
                         @Override
                         public void onSuccess(final String message, JSONArray jsonData) {
                             Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
         String jsonRequest = String.valueOf(object);
 //        String URL = "http://development.ifuturz.com/core/FLAT_TEST/stone_galary/admin/webservice.php";
         String URL = "http://www.vnurture.in/pro/mailtest.php";
-        new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, new AsyncResponse() {
+        new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, "data" ,new AsyncResponse() {
             @Override
             public void onSuccess(final String message, JSONArray jsonData) {
                 Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
