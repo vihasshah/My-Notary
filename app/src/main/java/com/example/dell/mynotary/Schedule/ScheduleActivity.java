@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
 import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
@@ -13,6 +14,7 @@ import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.R;
 import com.example.dell.mynotary.Helpers.Utils;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,16 +60,16 @@ public class ScheduleActivity extends AppCompatActivity {
         String jsonRequest = Utils.createJsonRequest(new String[]{"mode"},new String[]{"Schedule"});
         new WebserviceCall(this, Const.DETAILS_URL, jsonRequest, "getting schedules....", true, new AsyncResponse() {
             @Override
-            public void onSuccess(String message, JSONArray jsonData) {
-                decodeJsonData(jsonData);
-                ScheduleAdapter scheduleAdapter = new ScheduleAdapter(ScheduleActivity.this,ObjetHolder.scheduleModels);
-                listView.setAdapter(scheduleAdapter);
+            public void onCallback(String response) {
+                ScheduleModel model = new Gson().fromJson(response,ScheduleModel.class);
+                if(model.getSuccess() == 1) {
+                    ScheduleAdapter scheduleAdapter = new ScheduleAdapter(ScheduleActivity.this, model.getData());
+                    listView.setAdapter(scheduleAdapter);
+                }else{
+                    Toast.makeText(ScheduleActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
 
-            @Override
-            public void onFailure(String message) {
-
-            }
         }).execute();
 
     }
@@ -88,22 +90,22 @@ public class ScheduleActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    private void decodeJsonData(JSONArray jsonData) {
-        int count = jsonData.length();
-        for (int i = 0; i < count; i++) {
-            ScheduleModel model = new ScheduleModel();
-            try {
-                model.setDate(jsonData.getJSONObject(i).getString("date"));
-                model.setSubject(jsonData.getJSONObject(i).getString("subject"));
-                model.setTime(jsonData.getJSONObject(i).getString("time"));
-                model.setUniversity(jsonData.getJSONObject(i).getString("university"));
-                ObjetHolder.scheduleModels.add(model);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
+//    private void decodeJsonData(JSONArray jsonData) {
+//        int count = jsonData.length();
+//        for (int i = 0; i < count; i++) {
+//            ScheduleModel model = new ScheduleModel();
+//            try {
+//                model.setDate(jsonData.getJSONObject(i).getString("date"));
+//                model.setSubject(jsonData.getJSONObject(i).getString("subject"));
+//                model.setTime(jsonData.getJSONObject(i).getString("time"));
+//                model.setUniversity(jsonData.getJSONObject(i).getString("university"));
+//                ObjetHolder.scheduleModels.add(model);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//    }
 }
 
 

@@ -35,15 +35,14 @@ public class WebserviceCall extends AsyncTask<Void,Void,String>{
     boolean showDialog = true;
     String URL;
     String jsonBody;
-    String modeName;
-    public WebserviceCall(Context context, String URL, String jsonRequestBody, String dialogMessage, boolean showDialog, String modeName, AsyncResponse delegate){
+
+    public WebserviceCall(Context context, String URL, String jsonRequestBody, String dialogMessage, boolean showDialog, AsyncResponse delegate){
         this.context = context;
         this.URL = URL;
         this.jsonBody = jsonRequestBody;
         this.dialogMessage = dialogMessage;
         this.showDialog = showDialog;
         this.delegate = delegate;
-        this.modeName = modeName;
     }
 
     @Override
@@ -107,30 +106,32 @@ public class WebserviceCall extends AsyncTask<Void,Void,String>{
         if(s != null){
             // set value to AsyncResponse interface for further proccess in activity
             //  Log.d("myapp",getClass().getSimpleName()+" "+s);
-            if(delegate != null) {
-                try {
-                    JSONObject object = new JSONObject(s);
-                    // check if json has value or not
-                    if(object.length() > 0){
-                        // if json object is not null
-                        if(object.getInt("success") == 1){
-                            // success
-                            delegate.onSuccess(object.getString("message"),object.getJSONArray(modeName));
-                        }else{
-                            // failure
-                            delegate.onFailure(object.getString("Fail"));
-                        }
-                    }else{
-                        // failure
-                        delegate.onFailure(object.getString("Fail"));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }else{
-                // failure
-                delegate.onFailure("Null Response");
-            }
+//            if(delegate != null) {
+//                try {
+//                    JSONObject object = new JSONObject(s);
+//                    // check if json has value or not
+//                    if(object.length() > 0){
+//                        // if json object is not null
+//                        if(object.getInt("success") == 1){
+//                            // success
+//                            delegate.onSuccess(object.getString("message"),object.getJSONArray(modeName));
+//                        }else{
+//                            // failure
+//                            delegate.onFailure(object.getString("Fail"));
+//                        }
+//                    }else{
+//                        // failure
+//                        delegate.onFailure(object.getString("Fail"));
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }else{
+//                // failure
+//                delegate.onFailure("Null Response");
+//            }
+
+           delegate.onCallback(s);
         }else{
             Log.d("myapp",getClass().getSimpleName()+": response null");
         }

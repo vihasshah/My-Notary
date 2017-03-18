@@ -1,19 +1,26 @@
-package com.example.dell.mynotary;
+package com.example.dell.mynotary.Signup;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
 import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
 import com.example.dell.mynotary.Helpers.Const;
+import com.example.dell.mynotary.HomeActivity;
+import com.example.dell.mynotary.R;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,11 +35,13 @@ import java.util.regex.Pattern;
 
 public class SignupActivity extends AppCompatActivity {
 
+    int selectedRole = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+        Spinner roleSpinner = (Spinner) findViewById(R.id.signup_spinner_role);
         final EditText nameET=(EditText)findViewById(R.id.edittext_name_edittext);
         final EditText emailET=(EditText)findViewById(R.id.edittext_email_edittext);
         final EditText lastnameET=(EditText)findViewById(R.id.edittext_lastname_edittext);
@@ -43,11 +52,27 @@ public class SignupActivity extends AppCompatActivity {
         final RadioButton femaleRB=(RadioButton)findViewById(R.id.radiobutton_female_radiobutton) ;
         final EditText cnoET=(EditText)findViewById(R.id.edittext_cn_edittext);
         Button btnsignup;
-
-
-
-
         btnsignup=(Button) findViewById(R.id.signup_btn_signup);
+
+        // handling role spinner
+        String roles[] = getResources().getStringArray(R.array.role);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,roles);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(adapter);
+        roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position > 0){
+                    selectedRole = position;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         btnsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +145,7 @@ public class SignupActivity extends AppCompatActivity {
                         object.put("dob","");
                         object.put("username",strname);
                         object.put("phone",strcno);
-                        object.put("role",1);
+                        object.put("role",selectedRole);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -128,23 +153,20 @@ public class SignupActivity extends AppCompatActivity {
                     String jsonRequest = String.valueOf(object);
 //                    String URL = "http://development.ifuturz.com/core/FLAT_TEST/stone_galary/admin/webservice.php";
                     String URL = "http://www.vnurture.in/pro/registration.php";
-                    new WebserviceCall(SignupActivity.this, URL, jsonRequest, "Loading...", true, Const.RESPONSE_MODE,new AsyncResponse() {
+                    new WebserviceCall(SignupActivity.this, URL, jsonRequest, "Loading...", true, new AsyncResponse() {
                         @Override
-                        public void onSuccess(final String message, JSONArray jsonData) {
-                            Toast.makeText(SignupActivity.this, message, Toast.LENGTH_SHORT).show();
-                            try {
-                                getSharedPreferences("testpref",MODE_PRIVATE).edit().putString("id",jsonData.getJSONObject(0).getString("id")).apply();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                        public void onCallback(String response) {
+                            Log.d("myapp","signup response:" +response);
+                            SignupModel model = new Gson().fromJson(response,SignupModel.class);
+                            Toast.makeText(SignupActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                            if(model.getSuccess() == 1) {
+                                // store id to shared preference for session
+                                getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit().putString(Const.USER_ID,model.getData().get(0).getId()).apply();
+                                Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
+                                startActivity(intent);
                             }
-                            Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
-                            startActivity(intent);
                         }
 
-                        @Override
-                        public void onFailure(String message) {
-                            Toast.makeText(SignupActivity.this, message, Toast.LENGTH_SHORT).show();
-                        }
                     }).execute();
                 }
 

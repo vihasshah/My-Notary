@@ -13,6 +13,7 @@ import com.example.dell.mynotary.R;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by DELL on 2/21/2017.
@@ -21,9 +22,9 @@ import java.util.ArrayList;
 
 public class ScheduleAdapter extends BaseAdapter {
     Context context;
-    ArrayList<ScheduleModel> arrayList;
+    List<ScheduleModel.DataBean> arrayList;
 
-    public ScheduleAdapter(Context context, ArrayList arrayList) {
+    public ScheduleAdapter(Context context, List<ScheduleModel.DataBean> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -76,7 +77,7 @@ public class ScheduleAdapter extends BaseAdapter {
                 // handling on click event
                 // pass position to details activity to show details
                 Intent intent = new Intent(context,ScheduleDetailActivity.class);
-                intent.putExtra(Const.INTENT_POSITION,position);
+                intent.putExtra(Const.INTENT_POSITION_CLASS,arrayList.get(position));
                 context.startActivity(intent);
             }
         });

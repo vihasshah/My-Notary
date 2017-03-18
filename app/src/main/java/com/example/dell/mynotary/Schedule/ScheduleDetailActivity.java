@@ -31,16 +31,16 @@ public class ScheduleDetailActivity extends AppCompatActivity {
 
 
         // get position from then intent
-        int position = getIntent().getIntExtra(Const.INTENT_POSITION,-1);
+        ScheduleModel.DataBean model = (ScheduleModel.DataBean) getIntent().getSerializableExtra(Const.INTENT_POSITION_CLASS);
         // check for default value
-        if(position != -1){
+//        if(position != -1){
             // setting values to textviews
             // values are taken from then static arraylist which is declaired public in ObjectHolder class
-            titleTV.setText(ObjetHolder.scheduleModels.get(position).getSubject());
-            venueTV.setText(ObjetHolder.scheduleModels.get(position).getUniversity());
-            dateTV.setText(ObjetHolder.scheduleModels.get(position).getDate());
-            timeTV.setText(ObjetHolder.scheduleModels.get(position).getTime());
-        }
+            titleTV.setText(model.getSubject());
+            venueTV.setText(model.getUniversity());
+            dateTV.setText(model.getDate());
+            timeTV.setText(model.getTime());
+//        }
     }
 
     @Override

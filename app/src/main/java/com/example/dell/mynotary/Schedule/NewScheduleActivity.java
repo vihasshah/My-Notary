@@ -21,6 +21,7 @@ import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
 import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.R;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 
@@ -93,17 +94,17 @@ public class NewScheduleActivity extends AppCompatActivity {
             String keys[] = new String[]{"mode","university","subject","date","time","description"};
             String values[] = new String[]{"Schedule",venueStr,titleStr,selectedDate,selectedTime,descStr};
             String jsonRequest = Utils.createJsonRequest(keys,values);
-            new WebserviceCall(this, Const.INSERT_URL, jsonRequest, "Saving...", true, Const.RESPONSE_MODE,new AsyncResponse() {
+            new WebserviceCall(this, Const.INSERT_URL, jsonRequest, "Saving...", true,new AsyncResponse() {
                 @Override
-                public void onSuccess(String message, JSONArray jsonData) {
-                    Toast.makeText(NewScheduleActivity.this, message, Toast.LENGTH_SHORT).show();
-//                    decodeJsonData(jsonData);
-                    onBackPressed();
-                }
-
-                @Override
-                public void onFailure(String message) {
-                    Toast.makeText(NewScheduleActivity.this, message, Toast.LENGTH_SHORT).show();
+                public void onCallback(String response) {
+                    ScheduleModel model = new Gson().fromJson(response,ScheduleModel.class);
+                    // check for result if succeed or not
+                    if(model.getSuccess() == 1) {
+                        Toast.makeText(NewScheduleActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }else{
+                        Toast.makeText(NewScheduleActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }).execute();
         }

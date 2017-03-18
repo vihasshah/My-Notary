@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.R;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by DELL on 2/17/2017.
@@ -19,9 +21,9 @@ import java.util.ArrayList;
 
 public class MyCaseDetailsAdapter extends BaseAdapter {
     Context context;
-    ArrayList<CaseDetailsModel> arrayList;
+    List<CaseDetailsModel.DataBean> arrayList;
 
-    public MyCaseDetailsAdapter(Context context, ArrayList<CaseDetailsModel> arrayList) {
+    public MyCaseDetailsAdapter(Context context, List<CaseDetailsModel.DataBean> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -62,13 +64,13 @@ public class MyCaseDetailsAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         // set material letter
-        String caseName = arrayList.get(position).getCaseName();
+        String caseName = arrayList.get(position).getTitle();
         String firstChar = String.valueOf(caseName.charAt(0));
         holder.icon.setLetter(firstChar);
 
         // set rest values
         holder.caseNameTV.setText(caseName);
-        holder.clientNameTV.setText(arrayList.get(position).getClientName());
+        holder.clientNameTV.setText(arrayList.get(position).getClient_name());
         holder.detailsTV.setText(arrayList.get(position).getDetails());
         // handle convertview onclick
         convertView.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +78,7 @@ public class MyCaseDetailsAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // go to details activity
                 Intent intent = new Intent(context,CaseDetailsActivity.class);
-                intent.putExtra("position",position);
+                intent.putExtra(Const.INTENT_POSITION_CLASS,arrayList.get(position));
                 context.startActivity(intent);
             }
         });

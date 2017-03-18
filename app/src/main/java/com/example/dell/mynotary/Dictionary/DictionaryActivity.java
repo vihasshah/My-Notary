@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -16,6 +17,7 @@ import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.R;
 import com.example.dell.mynotary.Schedule.ScheduleActivity;
 import com.example.dell.mynotary.Schedule.ScheduleAdapter;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +32,11 @@ public class DictionaryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dictionary);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //show back button
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         listView = (ListView) findViewById(R.id.dictionary_listview);
 
@@ -43,33 +50,35 @@ public class DictionaryActivity extends AppCompatActivity {
         String jsonRequest = Utils.createJsonRequest(new String[]{"mode"},new String[]{"Dictionary"});
         new WebserviceCall(this, Const.DETAILS_URL, jsonRequest, "getting schedules....", true, new AsyncResponse() {
             @Override
-            public void onSuccess(String message, JSONArray jsonData) {
-                decodeJsonData(jsonData);
-                DictionaryAdapter dictionaryAdapter = new DictionaryAdapter(DictionaryActivity.this,ObjetHolder.dictionaryList);
+            public void onCallback(String response) {
+                DictionaryModel model = new Gson().fromJson(response,DictionaryModel.class);
+                DictionaryAdapter dictionaryAdapter = new DictionaryAdapter(DictionaryActivity.this,model.getData());
                 listView.setAdapter(dictionaryAdapter);
-
-            }
-
-            @Override
-            public void onFailure(String message) {
-
             }
         }).execute();
 
     }
 
-    private void decodeJsonData(JSONArray jsonData) {
-        int count = jsonData.length();
-        for (int i = 0; i < count; i++) {
-            DictionaryModel model = new DictionaryModel();
-            try {
-                model.setWord(jsonData.getJSONObject(i).getString("word"));
-                model.setDescription(jsonData.getJSONObject(i).getString("description"));
-                ObjetHolder.dictionaryList.add(model);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//    private void decodeJsonData(JSONArray jsonData) {
+//        int count = jsonData.length();
+//        for (int i = 0; i < count; i++) {
+//            DictionaryModel model = new DictionaryModel();
+//            try {
+//                model.setWord(jsonData.getJSONObject(i).getString("word"));
+//                model.setDescription(jsonData.getJSONObject(i).getString("description"));
+//                ObjetHolder.dictionaryList.add(model);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId()== android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

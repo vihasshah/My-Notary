@@ -1,4 +1,4 @@
-package com.example.dell.mynotary;
+package com.example.dell.mynotary.Login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,16 +14,18 @@ import android.widget.Toast;
 
 import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
 import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
+import com.example.dell.mynotary.Helpers.Const;
+import com.example.dell.mynotary.HomeActivity;
+import com.example.dell.mynotary.R;
+import com.example.dell.mynotary.Signup.SignupActivity;
+import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
     TextView btnsignup;
-    EditText emailET;
-    EditText pwdloginET;
     Button btnlogin;
     TextView fgpwdET;
     View dialogView;
@@ -94,23 +96,25 @@ public class LoginActivity extends AppCompatActivity {
                     String jsonRequest = String.valueOf(object);
 //                    String URL = "http://development.ifuturz.com/core/FLAT_TEST/stone_galary/admin/webservice.php";
                     String URL = "http://www.vnurture.in/pro/login.php";
-                    new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, "data",new AsyncResponse() {
-                        @Override
-                        public void onSuccess(final String message, JSONArray jsonData) {
-                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                            try {
-                                getSharedPreferences("testpref",MODE_PRIVATE).edit().putString("id",jsonData.getJSONObject(0).getString("id")).apply();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                        }
+                    new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true,new AsyncResponse() {
 
                         @Override
-                        public void onFailure(String message) {
-                            Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+                        public void onCallback(String response) {
+                            LoginModel model = new Gson().fromJson(response,LoginModel.class);
+                            if(model.getSuccess() == 1){
+                                // login successful
+                                Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                                // store id to sharedpreference
+                                getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit().putString(Const.USER_ID, model.getData().get(0).getId()).apply();
+                                // go to home activity
+                                Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+                                startActivity(intent);
+                            }else{
+                                // login unsuccessful
+                                Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
                         }
+
                     }).execute();
 
                 }
@@ -160,18 +164,20 @@ public class LoginActivity extends AppCompatActivity {
         String jsonRequest = String.valueOf(object);
 //        String URL = "http://development.ifuturz.com/core/FLAT_TEST/stone_galary/admin/webservice.php";
         String URL = "http://www.vnurture.in/pro/mailtest.php";
-        new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true, "data" ,new AsyncResponse() {
+        new WebserviceCall(LoginActivity.this, URL, jsonRequest, "Loading...", true,new AsyncResponse() {
             @Override
-            public void onSuccess(final String message, JSONArray jsonData) {
-                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                startActivity(intent);
+            public void onCallback(String response) {
+//                LoginModel model = new Gson().fromJson(response,LoginModel.class);
+//                if(model.getSuccess() == 1) {
+//
+////                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                    startActivity(intent);
+//                }else{
+//                    Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
             }
 
-            @Override
-            public void onFailure(String message) {
-                Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
         }).execute();
     }
 

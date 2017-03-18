@@ -7,6 +7,5 @@ import org.json.JSONArray;
  */
 
 public interface AsyncResponse {
-    void onSuccess(String message, JSONArray jsonData);
-    void onFailure(String message);
+    void onCallback(String response);
 }

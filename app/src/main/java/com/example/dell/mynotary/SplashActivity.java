@@ -5,6 +5,9 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.dell.mynotary.Helpers.Const;
+import com.example.dell.mynotary.Login.LoginActivity;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -14,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(getSharedPreferences("testpref",MODE_PRIVATE).getString("id",null) == null){
+                if(getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).getString(Const.USER_ID,null) == null){
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                 }else{

@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.R;
 
 public class CaseDetailsActivity extends AppCompatActivity {
     TextView caseNoTV,caseNameTV,clientNameTV,courtNameTV,dateTV,descTV;
-    int position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +19,7 @@ public class CaseDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         // get position
-        position = getIntent().getIntExtra("position",-1);
+        CaseDetailsModel.DataBean model = (CaseDetailsModel.DataBean) getIntent().getSerializableExtra(Const.INTENT_POSITION_CLASS);
         // init
         caseNoTV = (TextView) findViewById(R.id.case_details_case_number);
         caseNameTV = (TextView) findViewById(R.id.case_details_case_name);
@@ -28,23 +29,14 @@ public class CaseDetailsActivity extends AppCompatActivity {
         descTV = (TextView) findViewById(R.id.case_details_case_description);
 
 
-        if(ObjetHolder.caseDetailsList != null && position != -1){
-            // set values
-            String caseName = ObjetHolder.caseDetailsList.get(position).getCaseName();
-            String clientName = ObjetHolder.caseDetailsList.get(position).getClientName();
-            String courtName = ObjetHolder.caseDetailsList.get(position).getCourtName();
-            String caseNo = ObjetHolder.caseDetailsList.get(position).getCaseNo();
-            String date = ObjetHolder.caseDetailsList.get(position).getDate();
-            String details = ObjetHolder.caseDetailsList.get(position).getDetails();
+        //seting values to TextViews
+        caseNameTV.setText(model.getTitle());
+        clientNameTV.setText(model.getClient_name());
+        courtNameTV.setText(model.getCourt_name());
+        caseNoTV.setText(model.getCaseno());
+        dateTV.setText(model.getDate());
+        descTV.setText(model.getDetails());
 
-            //seting values to TextViews
-            caseNameTV.setText(caseName);
-            clientNameTV.setText(clientName);
-            courtNameTV.setText(courtName);
-            caseNoTV.setText(caseNo);
-            dateTV.setText(date);
-            descTV.setText(details);
-        }
     }
 
     @Override

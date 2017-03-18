@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
 import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
@@ -20,7 +21,9 @@ import com.example.dell.mynotary.Dictionary.DictionaryActivity;
 import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.Helpers.Utils;
+import com.example.dell.mynotary.Login.LoginActivity;
 import com.example.dell.mynotary.Schedule.ScheduleActivity;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,37 +77,43 @@ public class HomeActivity extends AppCompatActivity
         String jsonRequest = Utils.createJsonRequest(new String[]{"mode"},new String[]{"CaseDetails"});
         new WebserviceCall(this, Const.DETAILS_URL, jsonRequest, "getting details...", true, new AsyncResponse() {
             @Override
-            public void onSuccess(String message, JSONArray jsonData) {
-                decodeJsonData(jsonData);
-                MyCaseDetailsAdapter adapter = new MyCaseDetailsAdapter(HomeActivity.this,ObjetHolder.caseDetailsList);
-                listView.setAdapter(adapter);
+            public void onCallback(String response) {
+//                decodeJsonData(jsonData);
+                CaseDetailsModel model = new Gson().fromJson(response,CaseDetailsModel.class);
+                if(model.getSuccess() == 1) {
+                    Toast.makeText(HomeActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                    MyCaseDetailsAdapter adapter = new MyCaseDetailsAdapter(HomeActivity.this, model.getData());
+                    listView.setAdapter(adapter);
+                }else{
+                    Toast.makeText(HomeActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
 
-            @Override
-            public void onFailure(String message) {
-
-            }
+//            @Override
+//            public void onFailure(String message) {
+//
+//            }
         }).execute();
     }
 
-    private void decodeJsonData(JSONArray jsonData) {
-        int count = jsonData.length();
-        for (int i = 0; i < count; i++) {
-            CaseDetailsModel model = new CaseDetailsModel();
-            try {
-                model.setCaseNo(jsonData.getJSONObject(i).getString("caseno"));
-                model.setCaseName(jsonData.getJSONObject(i).getString("title"));
-                model.setDetails(jsonData.getJSONObject(i).getString("details"));
-                model.setCourtName(jsonData.getJSONObject(i).getString("court_name"));
-                model.setDate(jsonData.getJSONObject(i).getString("date"));
-                model.setClientName(jsonData.getJSONObject(i).getString("client_name"));
-                ObjetHolder.caseDetailsList.add(model);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
+//    private void decodeJsonData(JSONArray jsonData) {
+//        int count = jsonData.length();
+//        for (int i = 0; i < count; i++) {
+//            CaseDetailsModel model = new CaseDetailsModel();
+//            try {
+//                model.setCaseNo(jsonData.getJSONObject(i).getString("caseno"));
+//                model.setCaseName(jsonData.getJSONObject(i).getString("title"));
+//                model.setDetails(jsonData.getJSONObject(i).getString("details"));
+//                model.setCourtName(jsonData.getJSONObject(i).getString("court_name"));
+//                model.setDate(jsonData.getJSONObject(i).getString("date"));
+//                model.setClientName(jsonData.getJSONObject(i).getString("client_name"));
+//                ObjetHolder.caseDetailsList.add(model);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//    }
 
     @Override
     public void onBackPressed() {

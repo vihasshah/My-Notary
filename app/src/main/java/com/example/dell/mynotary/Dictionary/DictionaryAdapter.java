@@ -8,15 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.dell.mynotary.CaseDetails.CaseDetailsActivity;
-import com.example.dell.mynotary.CaseDetails.MyCaseDetailsAdapter;
 import com.example.dell.mynotary.Helpers.Const;
-import com.example.dell.mynotary.R;
-import com.example.dell.mynotary.Schedule.ScheduleAdapter;
 import com.example.dell.mynotary.Schedule.ScheduleDetailActivity;
-import com.github.ivbaranov.mli.MaterialLetterIcon;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by DELL on 3/14/2017.
@@ -24,9 +19,9 @@ import java.util.ArrayList;
 
 public class DictionaryAdapter extends BaseAdapter {
     Context context;
-    ArrayList<DictionaryModel> arrayList;
+    List<DictionaryModel.DataBean> arrayList;
 
-    public DictionaryAdapter(Context context, ArrayList<DictionaryModel> arrayList) {
+    public DictionaryAdapter(Context context, List<DictionaryModel.DataBean> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -71,8 +66,8 @@ public class DictionaryAdapter extends BaseAdapter {
             public void onClick(View v) {
                 // handling on click event
                 // pass position to details activity to show details
-                Intent intent = new Intent(context,ScheduleDetailActivity.class);
-                intent.putExtra(Const.INTENT_POSITION,position);
+                Intent intent = new Intent(context,DictionaryDetailsActivity.class);
+                intent.putExtra(Const.INTENT_POSITION_CLASS,arrayList.get(position));
                 context.startActivity(intent);
             }
         });
