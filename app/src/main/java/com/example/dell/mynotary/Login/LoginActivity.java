@@ -2,6 +2,7 @@ package com.example.dell.mynotary.Login;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -105,7 +106,10 @@ public class LoginActivity extends AppCompatActivity {
                                 // login successful
                                 Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
                                 // store id to sharedpreference
-                                getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit().putString(Const.USER_ID, model.getData().get(0).getId()).apply();
+                                SharedPreferences.Editor editor = getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit();
+                                editor.putString(Const.USER_ID, model.getData().get(0).getId());
+                                editor.putInt(Const.ROLE_ID, Integer.parseInt(model.getData().get(0).getRole()));
+                                editor.apply();
                                 // go to home activity
                                 Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                                 startActivity(intent);

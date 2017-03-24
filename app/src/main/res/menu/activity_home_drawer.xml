@@ -6,18 +6,12 @@
             android:id="@+id/nav_Case_Details"
             android:icon="@drawable/ic_school_black_24dp"
             android:title="Case Details" />
+\
         <item
-            android:id="@+id/nav_Schedule"
-            android:title="Schedule" >
-            <menu>
-                <item
-                    android:id="@+id/nav_Lecture_Schedule"
-                    android:icon="@drawable/ic_import_contacts_black_24dp"
-                    android:title="Lecture Schedule" />
+            android:id="@+id/nav_Lecture_Schedule"
+            android:icon="@drawable/ic_import_contacts_black_24dp"
+            android:title="Lecture Schedule" />
 
-
-            </menu>
-            </item>
         <item
             android:id="@+id/nav_Law_Dictionary"
             android:icon="@drawable/ic_local_library_black_24dp"

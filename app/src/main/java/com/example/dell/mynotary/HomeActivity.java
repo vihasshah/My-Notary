@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -35,6 +36,8 @@ public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView listView;
+    int role = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,8 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // init
+        role = Utils.getRole(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,11 +57,25 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         // checked first
-        navigationView.getMenu().getItem(0).setChecked(true);
+        Menu navMenu = navigationView.getMenu();
+        navMenu.getItem(0).setChecked(true);
+        //handling menu
+        MenuItem caseDetails = navMenu.findItem(R.id.nav_Case_Details);
+        MenuItem lectSchedule = navMenu.findItem(R.id.nav_Lecture_Schedule);
+        MenuItem lawDict = navMenu.findItem(R.id.nav_Law_Dictionary);
+        MenuItem material = navMenu.findItem(R.id.nav_Material);
+        if(role == Const.ROLE_CLIENT){
+            material.setVisible(false);
+            lectSchedule.setVisible(false);
+        }else if(role == Const.ROLE_UNIVERSITY){
+            caseDetails.setVisible(false);
+        }else if(role == Const.ROLE_STUDENT){
+            caseDetails.setVisible(false);
+            lectSchedule.setVisible(false);
+        }
+
         // handled list view
         listView = (ListView) findViewById(R.id.home_list_view);
-
-
        /* ObjetHolder.scheduleModels = new ArrayList<>();
         ScheduleModel model1=new ScheduleModel();
         model1.setLectureschedulelist("lectureschedulelist");
@@ -130,6 +149,7 @@ public class HomeActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.home, menu);
+
         return true;
     }
 
@@ -171,7 +191,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         }*/ else if (id == R.id.nav_Logout) {
-                getSharedPreferences("testpref",MODE_PRIVATE).edit().clear().apply();
+                getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit().clear().apply();
                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                startActivity(intent);
@@ -182,5 +202,28 @@ public class HomeActivity extends AppCompatActivity
         return true;
     }
 
-
+//    @Override
+//    public boolean onPrepareOptionsMenu(Menu menu) {
+//        menu.getItem(0).setChecked(true);
+//        //handling menu
+//        MenuItem caseDetails = menu.findItem(R.id.nav_Case_Details);
+//        MenuItem lectSchedule = menu.findItem(R.id.nav_Lecture_Schedule);
+//        MenuItem lawDict = menu.findItem(R.id.nav_Law_Dictionary);
+//        MenuItem materialItem = menu.findItem(R.id.nav_Material);
+//        Log.d("myapp","Role : "+role);
+//        if(role == Const.ROLE_CLIENT){
+//            materialItem.setVisible(false);
+//            lawDict.setVisible(false);
+//            caseDetails.setVisible(true);
+//            lectSchedule.setVisible(true);
+//        }else if(role == Const.ROLE_UNIVERSITY){
+//            caseDetails.setVisible(false);
+//        }else if(role == Const.ROLE_STUDENT){
+//            caseDetails.setVisible(false);
+//            lectSchedule.setVisible(false);
+//        }else{
+//
+//        }
+//        return true;
+//    }
 }

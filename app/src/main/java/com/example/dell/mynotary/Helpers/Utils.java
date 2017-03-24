@@ -159,4 +159,8 @@ public class Utils {
         }
     }
 
+
+    public static int getRole(Context context){
+        return context.getSharedPreferences(Const.SHAREDPREFERENCE_NAME,Context.MODE_PRIVATE).getInt(Const.ROLE_ID,0);
+    }
 }
