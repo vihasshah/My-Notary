@@ -24,4 +24,5 @@
         <item>University</item>
         <item>Student</item>
     </string-array>
+    <string name="title_activity_material">MaterialActivity</string>
 </resources>

@@ -22,6 +22,7 @@ import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.Login.LoginActivity;
+import com.example.dell.mynotary.Material.MaterialActivity;
 import com.example.dell.mynotary.Schedule.ScheduleActivity;
 import com.google.gson.Gson;
 
@@ -162,9 +163,10 @@ public class HomeActivity extends AppCompatActivity
        {
            Intent intent = new Intent(HomeActivity.this, DictionaryActivity.class);
            startActivity(intent);
-        }/* else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_Material) {
+            Intent intent = new Intent(HomeActivity.this, MaterialActivity.class);
+            startActivity(intent);
+        }/* else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 

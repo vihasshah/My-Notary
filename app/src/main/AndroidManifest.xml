@@ -3,7 +3,8 @@
     package="com.example.dell.mynotary">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,19 +13,21 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Login.LoginActivity"
-            android:screenOrientation="portrait"
             android:noHistory="true"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".Signup.SignupActivity"
             android:screenOrientation="portrait"
-            android:noHistory="true"/>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".Signup.SignupActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CaseDetails.CaseDetailsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".CaseDetails.CaseDetailsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
             android:noHistory="true"
@@ -36,8 +39,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Schedule.ScheduleActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Schedule.ScheduleActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Schedule.ScheduleDetailActivity"
             android:label="@string/title_activity_schedule_detail"
@@ -57,6 +61,10 @@
             android:name=".Schedule.NewScheduleActivity"
             android:label="@string/title_activity_new_schedule"
             android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Material.MaterialActivity"
+            android:label="@string/title_activity_material"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
