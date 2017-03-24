@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -59,16 +60,22 @@ public class MaterialActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle("Materials");
 
+        //==========================================================================================
+        // UPLOAD FILE
+        //==========================================================================================
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent();
-                intent.setType("application/pdf");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select PDF"), 1);
+        // if role is lawyer then upload fab button will be displayed
+        // for other roles fab will be hide
+        if(Utils.getRole(this) == Const.ROLE_LAWYER) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent();
+                    intent.setType("application/pdf");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(Intent.createChooser(intent, "Select PDF"), 1);
 
-                //for testing only
+                    //for testing only
 //                String url = "http://www.vnurture.in/pro/fetchmaterial.php";
 //                String jsonRequest = "{'userid':'1'}";
 //                new WebserviceCall(MaterialActivity.this, url, jsonRequest, "Loading...", true, new AsyncResponse() {
@@ -101,15 +108,24 @@ public class MaterialActivity extends AppCompatActivity {
 //                        });
 //                    }
 //                }).execute();
-            }
-        });
-        // listview
+                }
+            });
+        }else{
+            fab.setVisibility(View.GONE);
+        }
+        //==========================================================================================
+        // UPLOAD FILES END
+        //==========================================================================================
+
+        //==========================================================================================
+        // LIST OF MATERIALS
+        //==========================================================================================
         listView = (ListView) findViewById(R.id.material_list_view);
-        String url = "http://www.vnurture.in/pro/fetchmaterial.php";
+
         String userid = getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).getString(Const.USER_ID,null);
         String jsonRequest = Utils.createJsonRequest(new String[]{"userid"},new String[]{userid});
         Log.d("myapp",jsonRequest);
-        new WebserviceCall(this, url, jsonRequest, "Loading...", true, new AsyncResponse() {
+        new WebserviceCall(this, Const.FETCH_MATERIAL, jsonRequest, "Loading...", true, new AsyncResponse() {
             @Override
             public void onCallback(String response) {
                 MaterialModel model = new Gson().fromJson(response,MaterialModel.class);
@@ -122,8 +138,13 @@ public class MaterialActivity extends AppCompatActivity {
             }
         }).execute();
 
+        //==========================================================================================
+        // LIST OF MATERIALS END
+        //==========================================================================================
+
     }
 
+    // USER TO PICK FILE
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == PICKFILE_REQUEST_CODE){
@@ -152,6 +173,13 @@ public class MaterialActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     class Upload extends AsyncTask<Void, Void, Void> {
         private ProgressDialog pd;
