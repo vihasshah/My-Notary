@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.dell.mynotary.Helpers.Const;
+import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.R;
 import com.github.ivbaranov.mli.MaterialLetterIcon;
 
@@ -70,7 +71,11 @@ public class MyCaseDetailsAdapter extends BaseAdapter {
 
         // set rest values
         holder.caseNameTV.setText(caseName);
-        holder.clientNameTV.setText(arrayList.get(position).getClient_name());
+        if(Utils.getRole(context) == Const.ROLE_CLIENT){
+            holder.clientNameTV.setVisibility(View.GONE);
+        }else{
+            holder.clientNameTV.setText(arrayList.get(position).getClient_name());
+        }
         holder.detailsTV.setText(arrayList.get(position).getDetails());
         // handle convertview onclick
         convertView.setOnClickListener(new View.OnClickListener() {

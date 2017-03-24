@@ -3,10 +3,12 @@ package com.example.dell.mynotary.CaseDetails;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.ObjetHolder;
+import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.R;
 
 public class CaseDetailsActivity extends AppCompatActivity {
@@ -31,7 +33,11 @@ public class CaseDetailsActivity extends AppCompatActivity {
 
         //seting values to TextViews
         caseNameTV.setText(model.getTitle());
-        clientNameTV.setText(model.getClient_name());
+        if(Utils.getRole(this) == Const.ROLE_CLIENT){
+            clientNameTV.setVisibility(View.GONE);
+        }else {
+            clientNameTV.setText(model.getClient_name());
+        }
         courtNameTV.setText(model.getCourt_name());
         caseNoTV.setText(model.getCaseno());
         dateTV.setText(model.getDate());
