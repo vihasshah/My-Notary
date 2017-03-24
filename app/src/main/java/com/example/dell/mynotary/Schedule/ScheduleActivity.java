@@ -29,7 +29,7 @@ public class ScheduleActivity extends AppCompatActivity {
     String Day[];
     String Time[];
     String Subject[];
-
+    int role = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,7 @@ public class ScheduleActivity extends AppCompatActivity {
         // get position
      //  position = getIntent().getIntExtra("position",-1);
         // init
+        role = Utils.getRole(this); //role
         Day=getResources().getStringArray(R.array.day);
         Time=getResources().getStringArray(R.array.time);
         Subject=getResources().getStringArray(R.array.subject);
@@ -76,7 +77,9 @@ public class ScheduleActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_add,menu);
+        if(role == Const.ROLE_LAWYER || role == Const.ROLE_UNIVERSITY) {
+            getMenuInflater().inflate(R.menu.menu_add, menu);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -85,8 +88,10 @@ public class ScheduleActivity extends AppCompatActivity {
             onBackPressed();
         }
         else if(item.getItemId() == R.id.menu_add_icon){
-            Intent intent = new Intent(ScheduleActivity.this,NewScheduleActivity.class);
-            startActivity(intent);
+            if(role == Const.ROLE_LAWYER || role == Const.ROLE_UNIVERSITY) {
+                Intent intent = new Intent(ScheduleActivity.this, NewScheduleActivity.class);
+                startActivity(intent);
+            }
         }
         return super.onOptionsItemSelected(item);
     }
