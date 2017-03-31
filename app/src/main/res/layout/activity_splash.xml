@@ -16,4 +16,13 @@
         android:layout_centerInParent="true"
         android:src="@drawable/logo1"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="42sp"
+        android:text="My Notary"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.dell.mynotary.Signup;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -161,7 +162,10 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(SignupActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
                             if(model.getSuccess() == 1) {
                                 // store id to shared preference for session
-                                getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit().putString(Const.USER_ID,model.getData().get(0).getId()).apply();
+                                SharedPreferences.Editor editor = getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit();
+                                editor.putString(Const.USER_ID,model.getData().get(0).getId());
+                                editor.putInt(Const.ROLE_ID,selectedRole);
+                                editor.apply();
                                 Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                                 startActivity(intent);
                             }

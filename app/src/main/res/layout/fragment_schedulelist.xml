@@ -4,10 +4,9 @@
     android:id="@+id/activity_schedulelist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.dell.mynotary.Schedule.ScheduleActivity">
+    tools:context="com.example.dell.mynotary.Schedule.ScheduleFragment">
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/schedule_list_view"/>
-
-    </RelativeLayout>
+</RelativeLayout>

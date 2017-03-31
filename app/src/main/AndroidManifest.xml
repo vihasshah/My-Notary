@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Schedule.ScheduleActivity"
+            android:name=".Schedule.ScheduleFragment"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Schedule.ScheduleDetailActivity"

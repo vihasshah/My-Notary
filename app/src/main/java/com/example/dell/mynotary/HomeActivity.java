@@ -3,34 +3,25 @@ package com.example.dell.mynotary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
-import com.example.dell.mynotary.AsyncTasks.WebserviceCall;
-import com.example.dell.mynotary.CaseDetails.CaseDetailsModel;
-import com.example.dell.mynotary.CaseDetails.MyCaseDetailsAdapter;
+import com.example.dell.mynotary.CaseDetails.CaseFragment;
 import com.example.dell.mynotary.Dictionary.DictionaryActivity;
 import com.example.dell.mynotary.Helpers.Const;
-import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.Login.LoginActivity;
 import com.example.dell.mynotary.Material.MaterialActivity;
-import com.example.dell.mynotary.Schedule.ScheduleActivity;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
+import com.example.dell.mynotary.Schedule.NewScheduleActivity;
+import com.example.dell.mynotary.Schedule.ScheduleFragment;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,9 +64,18 @@ public class HomeActivity extends AppCompatActivity
             caseDetails.setVisible(false);
             lectSchedule.setVisible(false);
         }
+        if(role == Const.ROLE_LAWYER || role == Const.ROLE_CLIENT) {
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_home, new CaseFragment(), CaseFragment.class.getSimpleName());
+            transaction.addToBackStack(CaseFragment.class.getSimpleName());
+            transaction.commit();
+        }else if(role == Const.ROLE_UNIVERSITY){
 
+        }else if (role == Const.ROLE_STUDENT){
+
+        }
         // handled list view
-        listView = (ListView) findViewById(R.id.home_list_view);
+//        listView = (ListView) findViewById(R.id.home_list_view);
        /* ObjetHolder.scheduleModels = new ArrayList<>();
         ScheduleModel model1=new ScheduleModel();
         model1.setLectureschedulelist("lectureschedulelist");
@@ -91,49 +91,30 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        ObjetHolder.caseDetailsList = new ArrayList<>();
-        // create request string
-
-        String jsonRequest = Utils.createJsonRequest(new String[]{"mode"},new String[]{"CaseDetails"});
-        new WebserviceCall(this, Const.DETAILS_URL, jsonRequest, "getting details...", true, new AsyncResponse() {
-            @Override
-            public void onCallback(String response) {
-//                decodeJsonData(jsonData);
-                CaseDetailsModel model = new Gson().fromJson(response,CaseDetailsModel.class);
-                if(model.getSuccess() == 1) {
-                    Toast.makeText(HomeActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
-                    MyCaseDetailsAdapter adapter = new MyCaseDetailsAdapter(HomeActivity.this, model.getData());
-                    listView.setAdapter(adapter);
-                }else{
-                    Toast.makeText(HomeActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
+//        ObjetHolder.caseDetailsList = new ArrayList<>();
+//        // create request string
+//
+//        String jsonRequest = Utils.createJsonRequest(new String[]{"mode"},new String[]{"CaseDetails"});
+//        new WebserviceCall(this, Const.DETAILS_URL, jsonRequest, "getting details...", true, new AsyncResponse() {
 //            @Override
-//            public void onFailure(String message) {
-//
+//            public void onCallback(String response) {
+////                decodeJsonData(jsonData);
+//                CaseDetailsModel model = new Gson().fromJson(response,CaseDetailsModel.class);
+//                if(model.getSuccess() == 1) {
+//                    Toast.makeText(HomeActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+//                    MyCaseDetailsAdapter adapter = new MyCaseDetailsAdapter(HomeActivity.this, model.getData());
+//                    listView.setAdapter(adapter);
+//                }else{
+//                    Toast.makeText(HomeActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
 //            }
-        }).execute();
+//
+////            @Override
+////            public void onFailure(String message) {
+////
+////            }
+//        }).execute();
     }
-
-//    private void decodeJsonData(JSONArray jsonData) {
-//        int count = jsonData.length();
-//        for (int i = 0; i < count; i++) {
-//            CaseDetailsModel model = new CaseDetailsModel();
-//            try {
-//                model.setCaseNo(jsonData.getJSONObject(i).getString("caseno"));
-//                model.setCaseName(jsonData.getJSONObject(i).getString("title"));
-//                model.setDetails(jsonData.getJSONObject(i).getString("details"));
-//                model.setCourtName(jsonData.getJSONObject(i).getString("court_name"));
-//                model.setDate(jsonData.getJSONObject(i).getString("date"));
-//                model.setClientName(jsonData.getJSONObject(i).getString("client_name"));
-//                ObjetHolder.caseDetailsList.add(model);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//    }
 
     @Override
     public void onBackPressed() {
@@ -148,8 +129,11 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-
+//        getMenuInflater().inflate(R.menu.home, menu);
+//        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(ScheduleFragment.class.getSimpleName());
+//        if(fragment != null && fragment.isVisible()){
+//            getMenuInflater().inflate(R.menu.menu_add,menu);
+//        }
         return true;
     }
 
@@ -159,11 +143,19 @@ public class HomeActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        Fragment fragment  = getSupportFragmentManager().findFragmentByTag(ScheduleFragment.class.getSimpleName());
+        if(fragment.isVisible()){
+            if(id == R.id.menu_add_icon){
+                if(role == Const.ROLE_LAWYER || role == Const.ROLE_UNIVERSITY) {
+                    Intent intent = new Intent(this, NewScheduleActivity.class);
+                    startActivity(intent);
+                }
+            }
         }
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -174,10 +166,11 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-       if (id == R.id.nav_Lecture_Schedule) {
-           Intent intent = new Intent(HomeActivity.this, ScheduleActivity.class);
-           startActivity(intent);
-
+       if (id == R.id.nav_Case_Details) {
+           FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+           transaction.replace(R.id.content_home, new CaseFragment(), CaseFragment.class.getSimpleName());
+           transaction.addToBackStack(CaseFragment.class.getSimpleName());
+           transaction.commit();
            // Handle the camera action
         } else if(id==R.id.nav_Law_Dictionary)
        {
@@ -186,9 +179,12 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_Material) {
             Intent intent = new Intent(HomeActivity.this, MaterialActivity.class);
             startActivity(intent);
-        }/* else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_Lecture_Schedule) {
+           FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+           transaction.replace(R.id.content_home, new ScheduleFragment(), ScheduleFragment.class.getSimpleName());
+           transaction.addToBackStack(CaseFragment.class.getSimpleName());
+           transaction.commit();
+        } /*else if (id == R.id.nav_share) {
 
         }*/ else if (id == R.id.nav_Logout) {
                 getSharedPreferences(Const.SHAREDPREFERENCE_NAME,MODE_PRIVATE).edit().clear().apply();

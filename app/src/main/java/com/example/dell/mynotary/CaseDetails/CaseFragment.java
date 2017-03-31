@@ -3,6 +3,7 @@ package com.example.dell.mynotary.CaseDetails;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,8 @@ public class CaseFragment extends Fragment {
         ObjetHolder.caseDetailsList = new ArrayList<>();
         // create request string
 
-        String jsonRequest = Utils.createJsonRequest(new String[]{"mode"," userid","roleid"},new String[]{"CaseDetails",userid, String.valueOf(roleId)});
+        String jsonRequest = Utils.createJsonRequest(new String[]{"mode","userid","roleid"},new String[]{"CaseDetails",userid, String.valueOf(roleId)});
+        Log.d("myapp","casedetails:"+jsonRequest);
         new WebserviceCall(getActivity(), Const.DETAILS_URL, jsonRequest, "getting details...", true, new AsyncResponse() {
             @Override
             public void onCallback(String response) {

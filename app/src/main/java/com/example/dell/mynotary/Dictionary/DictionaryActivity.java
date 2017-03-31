@@ -1,12 +1,9 @@
 package com.example.dell.mynotary.Dictionary;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 
 import com.example.dell.mynotary.AsyncTasks.AsyncResponse;
@@ -15,12 +12,7 @@ import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.ObjetHolder;
 import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.R;
-import com.example.dell.mynotary.Schedule.ScheduleActivity;
-import com.example.dell.mynotary.Schedule.ScheduleAdapter;
 import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.ArrayList;
 

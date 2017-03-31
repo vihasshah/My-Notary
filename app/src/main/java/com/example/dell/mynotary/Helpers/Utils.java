@@ -163,4 +163,8 @@ public class Utils {
     public static int getRole(Context context){
         return context.getSharedPreferences(Const.SHAREDPREFERENCE_NAME,Context.MODE_PRIVATE).getInt(Const.ROLE_ID,0);
     }
+
+    public static String getUserId(Context context){
+        return context.getSharedPreferences(Const.SHAREDPREFERENCE_NAME,Context.MODE_PRIVATE).getString(Const.USER_ID,null);
+    }
 }
