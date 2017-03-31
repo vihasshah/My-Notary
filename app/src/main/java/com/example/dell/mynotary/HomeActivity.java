@@ -3,6 +3,7 @@ package com.example.dell.mynotary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -15,7 +16,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.dell.mynotary.CaseDetails.CaseFragment;
-import com.example.dell.mynotary.Dictionary.DictionaryActivity;
+import com.example.dell.mynotary.Dictionary.DictionaryFragment;
 import com.example.dell.mynotary.Helpers.Const;
 import com.example.dell.mynotary.Helpers.Utils;
 import com.example.dell.mynotary.Login.LoginActivity;
@@ -72,7 +73,10 @@ public class HomeActivity extends AppCompatActivity
         }else if(role == Const.ROLE_UNIVERSITY){
 
         }else if (role == Const.ROLE_STUDENT){
-
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_home, new DictionaryFragment(), DialogFragment.class.getSimpleName());
+            transaction.addToBackStack(CaseFragment.class.getSimpleName());
+            transaction.commit();
         }
         // handled list view
 //        listView = (ListView) findViewById(R.id.home_list_view);
@@ -174,15 +178,17 @@ public class HomeActivity extends AppCompatActivity
            // Handle the camera action
         } else if(id==R.id.nav_Law_Dictionary)
        {
-           Intent intent = new Intent(HomeActivity.this, DictionaryActivity.class);
-           startActivity(intent);
+           FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+           transaction.replace(R.id.content_home, new DictionaryFragment(), DictionaryFragment.class.getSimpleName());
+           transaction.addToBackStack(DialogFragment.class.getSimpleName());
+           transaction.commit();
         } else if (id == R.id.nav_Material) {
             Intent intent = new Intent(HomeActivity.this, MaterialActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_Lecture_Schedule) {
            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
            transaction.replace(R.id.content_home, new ScheduleFragment(), ScheduleFragment.class.getSimpleName());
-           transaction.addToBackStack(CaseFragment.class.getSimpleName());
+           transaction.addToBackStack(ScheduleFragment.class.getSimpleName());
            transaction.commit();
         } /*else if (id == R.id.nav_share) {
 

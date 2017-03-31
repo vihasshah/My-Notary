@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.dell.mynotary.Dictionary.DictionaryActivity"
+    tools:context="com.example.dell.mynotary.Dictionary.DictionaryFragment"
     tools:showIn="@layout/activity_dictionary">
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/dictionary_listview"/>
+        android:id="@+id/dictionary_listview_old"/>
 
 </LinearLayout>

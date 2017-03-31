@@ -66,7 +66,7 @@ public class MaterialActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         // if role is lawyer then upload fab button will be displayed
         // for other roles fab will be hide
-        if(Utils.getRole(this) == Const.ROLE_LAWYER) {
+        if(Utils.getRole(this) == -1) {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

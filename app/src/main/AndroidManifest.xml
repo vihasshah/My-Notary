@@ -48,7 +48,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".Dictionary.DictionaryActivity"
+            android:name=".Dictionary.DictionaryFragment"
             android:label="@string/title_activity_dictionary"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
